@@ -1,6 +1,7 @@
 import { DbAddVehicle } from '@/data/usecases'
 import { mockAddVehicleParams } from '@/tests/domain/mocks'
 import { AddVehicleRespositorySpy } from '@/tests/data/mocks/mock-db-vehicle'
+import { throwError } from '@/tests/domain/mocks/test-helpers'
 
 type SutTypes = {
   sut: DbAddVehicle
@@ -14,10 +15,16 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DbAddVehicle Usecase', () => {
-  test('Should call AddVehicleRepository with correct values', () => {
+  test('Should call AddVehicleRepository with correct values', async () => {
     const { sut, addVehicleRepositorySpy } = makeSut()
     const mockParams = mockAddVehicleParams()
-    sut.add(mockParams)
+    await sut.add(mockParams)
     expect(addVehicleRepositorySpy.params).toEqual(mockParams)
+  })
+  test('Should throw if AddVehicleRepository throws', async () => {
+    const { sut, addVehicleRepositorySpy } = makeSut()
+    jest.spyOn(addVehicleRepositorySpy, 'add').mockImplementationOnce(throwError)
+    const promise = sut.add(mockAddVehicleParams())
+    await expect(promise).rejects.toThrow()
   })
 })
