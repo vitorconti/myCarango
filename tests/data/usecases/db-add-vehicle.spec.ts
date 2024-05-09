@@ -1,6 +1,6 @@
-import { DbAddVehicle } from '../../../src/data/usecases/db-add-vehicle'
-import { mockAddVehicleParams } from '../../domain/mocks'
-import { AddVehicleRespositorySpy } from '../mocks/mock-db-vehicle'
+import { DbAddVehicle } from '@/data/usecases'
+import { mockAddVehicleParams } from '@/tests/domain/mocks'
+import { AddVehicleRespositorySpy } from '@/tests/data/mocks/mock-db-vehicle'
 
 type SutTypes = {
   sut: DbAddVehicle

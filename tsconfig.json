@@ -1,24 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "outDir": "dist",
     "module": "commonjs",
-    "strict": true,
+    "target": "es2022",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
     "sourceMap": true,
-    "rootDir": "./",
-    "baseUrl": "./",
+    "rootDirs": ["src", "tests"],
+    "baseUrl": "src",
     "paths": {
-      "*": ["node_modules/*", "src/types/*"]
-    }
+      "@/tests/*": ["../tests/*"],
+      "@/*": ["*"]
+    } 
   },
-  "include": [
-    "src/**/*",
-    "tests/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src", "tests"],
+  "exclude": []
 }
