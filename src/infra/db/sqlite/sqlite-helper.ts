@@ -10,12 +10,15 @@ export class SqliteHelper {
     this.createTableIfNotExists('CREATE_VEHICLE_TABLE')
   }
 
-  private mapObjectToArray (object: any) {
-    const array = []
-    for (const [_key, value] of Object.entries(object)) {
-      array.push(value)
+  mapObjectToArray (object: any) {
+    if (object instanceof Object) {
+      const array = []
+      for (const [_key, value] of Object.entries(object)) {
+        array.push(value)
+      }
+      return array
     }
-    return array
+    return new Error()
   }
 
   openDbConnection () {
