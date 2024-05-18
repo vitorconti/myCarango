@@ -22,11 +22,4 @@ describe('SqliteHelper', () => {
       expect(mapError).toBeInstanceOf(Error);
     })
   })
-  // describe('openDbConnection()', () => {
-  //   test('Should return an error if an error occurs opening database connection', async () => {
-  //     const sut = new SqliteHelper({ path: '' })
-  //     const openConnectionError = sut.openDbConnection()
-  //     expect(openConnectionError).toBeInstanceOf(Error);
-  //   })
-  // })
 })

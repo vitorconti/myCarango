@@ -2,6 +2,7 @@
 import { mockAddVehicleParams } from '@/tests/domain/mocks'
 import { VehicleSqliteRepository } from '@/infra/db/sqlite/vehicle-sqlite-repository'
 import { SqliteHelper } from '@/infra/db/sqlite/sqlite-helper'
+import { MyCarangoSqliteStatements } from '@/infra/db/sqlite/sqlite-sql-statements'
 
 type SutTypes = {
   sut: VehicleSqliteRepository
@@ -17,13 +18,18 @@ const makeSut = (): SutTypes => {
 
 describe('VehicleSqliteRepository', () => {
   describe('add()', () => {
+
+    const { sut, dbInstance } = makeSut()
+    beforeAll(() => {
+      dbInstance.db.serialize(() => dbInstance.db.run(MyCarangoSqliteStatements.CREATE_STATEMENTS.CREATE_VEHICLE_TABLE))
+    })
     test('Should return true on if create add vehicle succeded', async () => {
-      const { sut, dbInstance } = makeSut()
       const addAccountParams = mockAddVehicleParams()
       await sut.add(addAccountParams)
-      const resultSet = await dbInstance.fetchAll('SELECT_ALL_VEHICLE_TABLE') as []
-      dbInstance.closeDbConnection()
-      expect(resultSet.length).toBe(1)
+      dbInstance.db.all(MyCarangoSqliteStatements.SELECT_STATEMENTS.SELECT_ALL_VEHICLE_TABLE, (_err, rows) => {
+        expect(rows.length).toBe(1)
+      })
+      dbInstance.db.close()
     })
   })
 })
