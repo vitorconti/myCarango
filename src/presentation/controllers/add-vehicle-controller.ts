@@ -9,8 +9,8 @@ export class AddVehicleController implements Controller<AddVehicleParams, AddVeh
       if (error) {
         throw error
       }
-      this.addVehicle.add(request)
-      return Promise.resolve(false)
+      return this.addVehicle.add(request)
+
     } catch (error) {
       return error
     }
