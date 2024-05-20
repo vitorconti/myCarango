@@ -38,4 +38,13 @@ describe('AddVehicleController', () => {
     await sut.handle(request)
     expect(addVehicleSpy.addVehicleParams).toEqual(request)
   })
+  test('Should return an Error if AddVehicle throws', async () => {
+    const { sut, addVehicleSpy } = makeSut()
+    jest.spyOn(addVehicleSpy, 'add').mockImplementationOnce((): never => {
+      throw new Error()
+    }
+    )
+    const httpResponse = await sut.handle(mockAddVehicleParams())
+    expect(httpResponse).toEqual(new Error())
+  })
 })
