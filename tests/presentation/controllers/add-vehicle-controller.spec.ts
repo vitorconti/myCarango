@@ -1,22 +1,24 @@
 import { mockAddVehicleParams } from '@/tests/domain/mocks'
 import { AddVehicleController } from '@/presentation/controllers/add-vehicle-controller'
-import { Validation } from '@/presentation/protocols'
-import { AddVehicleParams } from '@/domain/usecases/add-vehicle'
+import { ValidationSpy } from '@/tests/presentation/mocks'
 
 
-class ValidationSpy implements Validation {
-  error: Error = null
-  input: any
-  validate (input: AddVehicleParams) {
-    this.input = input
-    return this.error
+type SutTypes = {
+  sut: AddVehicleController
+  validationSpy: ValidationSpy
+}
+
+const makeSut = (): SutTypes => {
+  const validationSpy = new ValidationSpy()
+  const sut = new AddVehicleController(validationSpy)
+  return {
+    sut, validationSpy
   }
 }
 
 describe('AddVehicleController', () => {
   test('Should call validation with correct params', () => {
-    const validationSpy = new ValidationSpy()
-    const sut = new AddVehicleController(validationSpy)
+    const { sut, validationSpy } = makeSut()
     const request = mockAddVehicleParams()
     sut.handle(request)
     expect(validationSpy.input).toEqual(request)
