@@ -6,7 +6,6 @@ import { NonNullableFields } from '@/presentation/validation/non-nullable-fields
 import { ValidationComposite } from '@/presentation/validation/validator-composite'
 
 export const makeAddVehicleController = (): AddVehicleController => {
-  console.log(process.env.DB_PATH)
   const sqliteHelper = new SqliteHelper({ path: process.env.DB_PATH })
   const addVehicleRepository = new VehicleSqliteRepository(sqliteHelper)
   const dbAddVehicle = new DbAddVehicle(addVehicleRepository)

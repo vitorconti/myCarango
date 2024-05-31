@@ -11,7 +11,7 @@ export class CreateVehicleCli implements StdinAdapter<AddVehicleParams, AddVehic
     process.stdin.on('data', async (data: string) => {
       const input = data.trim();
       const [name, brand, year] = input.split(',').map(item => item.trim());
-      const request = { name, brand, year };
+      const request: AddVehicleParams = { name, brand, year };
 
       try {
         const httpResponse = await controller.handle(request);
