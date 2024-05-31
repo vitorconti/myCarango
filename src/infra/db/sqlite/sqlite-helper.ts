@@ -1,9 +1,16 @@
+import { MyCarangoSqliteStatements } from '@/infra/db/sqlite/sqlite-sql-statements';
+import path from 'path';
 import { Database } from 'sqlite3'
+
 export class SqliteHelper {
   public db: Database;
 
   constructor (private readonly location: DbLocation = { path: ':memory:' }) {
-    this.db = new Database(location.path)
+    if (this.location.path != ':memory:') {
+      this.location.path = path.resolve(__dirname, './myCarango-database.db')
+    }
+    this.db = new Database(this.location.path)
+    this.db.exec(MyCarangoSqliteStatements.CREATE_STATEMENTS.CREATE_VEHICLE_TABLE)
   }
 
   mapObjectToArray (object: any) {
