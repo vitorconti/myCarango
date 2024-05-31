@@ -5,14 +5,18 @@
 	"main": "index.js",
 	"type": "commonjs",
 	"scripts": {
-		"build": "rimraf ./dist && npx tsc",
+		"build": "rimraf ./dist && npx tsc && ./copy-db.sh",
 		"start": "node dist/index.js",
+		"start:cli": "node --env-file=.env dist/src/main/servers/cli-server.js ",
 		"dev": "nodemon src/index.ts",
 		"test": "jest --passWithNoTests --runInBand --no-cache",
 		"test:unit": "npm test -- --watch -c jest-unit-config.js",
 		"test:integration": "npm test -- --watch -c jest-integration-config.js",
 		"test:staged": "npm test -- --findRelatedTests",
 		"test:ci": "npm test -- --coverage"
+	},
+	"_moduleAliases": {
+		"@": "dist/src"
 	},
 	"keywords": [],
 	"author": "",
@@ -31,6 +35,7 @@
 	},
 	"dependencies": {
 		"@types/sqlite3": "^3.1.11",
+		"module-alias": "^2.2.3",
 		"sqlite3": "^5.1.7"
 	}
 }
