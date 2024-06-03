@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"type": "commonjs",
 	"scripts": {
-		"build": "rimraf ./dist && npx tsc && ./copy-db.sh",
+		"build": "rimraf ./dist && npx tsc",
 		"start": "node dist/index.js",
 		"start:cli": "node --env-file=.env dist/src/main/servers/cli-server.js ",
 		"dev": "nodemon src/index.ts",

@@ -2,12 +2,14 @@ import { MyCarangoSqliteStatements } from '@/infra/db/sqlite/sqlite-sql-statemen
 import path from 'path';
 import { Database } from 'sqlite3'
 
+
 export class SqliteHelper {
   public db: Database;
 
   constructor (private readonly location: DbLocation = { path: ':memory:' }) {
     if (this.location.path != ':memory:') {
-      this.location.path = path.resolve(__dirname, './myCarango-database.db')
+      console.log(this.location)
+      this.location.path = path.resolve(__dirname, this.location.path)
     }
     this.db = new Database(this.location.path)
     this.db.exec(MyCarangoSqliteStatements.CREATE_STATEMENTS.CREATE_VEHICLE_TABLE)
