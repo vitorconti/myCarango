@@ -27,7 +27,7 @@ describe('DbAddVehicle Usecase', () => {
     const promise = sut.add(mockAddVehicleParams())
     await expect(promise).rejects.toThrow()
   })
-  test('Should true if AddVehicleRepository returns true', async () => {
+  test('Should return true if AddVehicleRepository returns true', async () => {
     const { sut } = makeSut()
     const created = await sut.add(mockAddVehicleParams())
     expect(created).toBeTruthy()
