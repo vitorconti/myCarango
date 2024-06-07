@@ -15,7 +15,7 @@ export class AddVehicleRespositorySpy implements AddVehicleRepository {
 
 export class RetriveAllVehicleRespositorySpy implements RetriveAllVehicleRepository {
   result = { id: 1, ...mockAddVehicleParams() }
-  async retrive (): Promise<RetriveVehicleResult> {
-    return this.result
+  retrive (): Promise<RetriveVehicleResult> {
+    return Promise.resolve(this.result)
   }
 }

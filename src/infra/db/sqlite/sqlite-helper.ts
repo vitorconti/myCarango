@@ -8,7 +8,6 @@ export class SqliteHelper {
 
   constructor (private readonly location: DbLocation = { path: ':memory:' }) {
     if (this.location.path != ':memory:') {
-      console.log(this.location)
       this.location.path = path.resolve(__dirname, this.location.path)
     }
     this.db = new Database(this.location.path)
